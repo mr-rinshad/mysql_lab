@@ -1,0 +1,8 @@
+DELIMITER //
+
+CREATE PROCEDURE pjob()
+BEGIN
+    SELECT * FROM jobs;
+END //
+
+DELIMITER ;

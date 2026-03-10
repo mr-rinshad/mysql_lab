@@ -1,0 +1,309 @@
+INSERT INTO department (dept_no, dept_name) VALUES
+    ->      ('D01', 'Human Resources'),
+    ->      ('D02', 'Finance'),
+    ->      ('D03', 'IT'),
+    ->      ('D04', 'Marketing'),
+    ->      ('D05', 'Sales'),
+    ->      ('D06', 'Operations'),
+    ->      ('D07', 'Customer Support'),
+    ->      ('D08', 'Research'),
+    ->      ('D09', 'Administration'),
+    ->      ('D10', 'Training');
+Query OK, 10 rows affected (0.02 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO employee (emp_no, emp_name, mobile_no, salary, dept_no, designation) VALUES
+    -> ('E001', 'Rinshad', 987650001, 30000, 'D01', 'Manager'),
+    -> ('E002', 'Mishal',  987650002, 32000, 'D01', 'Assistant Manager'),
+    -> ('E003', 'Fidha',   987650003, 28000, 'D02', 'Accountant'),
+    -> ('E004', 'Mizba',   987650004, 35000, 'D02', 'Senior Accountant'),
+    -> ('E005', 'Rishin',  987650005, 40000, 'D03', 'Software Engineer'),
+    -> ('E006', 'Jasna',   987650006, 36000, 'D01', 'HR Executive'),
+    -> ('E007', 'Nidha',   987650007, 29000, 'D03', 'System Analyst'),
+    -> ('E008', 'Sadha',   987650008, 31000, 'D02', 'Finance Executive'),
+    -> ('E009', 'Anjum',   987650009, 33000, 'D01', 'Admin Officer'),
+    -> ('E010', 'Ameena',  987650010, 45000, 'D03', 'Team Lead');
+Query OK, 10 rows affected (0.01 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> SELECT * FROM employee;
++--------+----------+-----------+----------+---------+-------------------+
+| emp_no | emp_name | mobile_no | salary   | dept_no | designation       |
++--------+----------+-----------+----------+---------+-------------------+
+| E001   | Rinshad  | 987650001 | 30000.00 | D01     | Manager           |
+| E002   | Mishal   | 987650002 | 32000.00 | D01     | Assistant Manager |
+| E003   | Fidha    | 987650003 | 28000.00 | D02     | Accountant        |
+| E004   | Mizba    | 987650004 | 35000.00 | D02     | Senior Accountant |
+| E005   | Rishin   | 987650005 | 40000.00 | D03     | Software Engineer |
+| E006   | Jasna    | 987650006 | 36000.00 | D01     | HR Executive      |
+| E007   | Nidha    | 987650007 | 29000.00 | D03     | System Analyst    |
+| E008   | Sadha    | 987650008 | 31000.00 | D02     | Finance Executive |
+| E009   | Anjum    | 987650009 | 33000.00 | D01     | Admin Officer     |
+| E010   | Ameena   | 987650010 | 45000.00 | D03     | Team Lead         |
++--------+----------+-----------+----------+---------+-------------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT * FROM DEPARTMENT;
+ERROR 1146 (42S02): Table 'sample.DEPARTMENT' doesn't exist
+mysql> SELECT * FROM department;
++---------+------------------+
+| dept_no | dept_name        |
++---------+------------------+
+| D01     | Human Resources  |
+| D02     | Finance          |
+| D03     | IT               |
+| D04     | Marketing        |
+| D05     | Sales            |
+| D06     | Operations       |
+| D07     | Customer Support |
+| D08     | Research         |
+| D09     | Administration   |
+| D10     | Training         |
++---------+------------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT emp_no, emp_name
+    ->      FROM employee
+    ->      WHERE dept_no = 'D02';
++--------+----------+
+| emp_no | emp_name |
++--------+----------+
+| E003   | Fidha    |
+| E004   | Mizba    |
+| E008   | Sadha    |
++--------+----------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT emp_no, emp_name, designation, dept_no, salary
+    ->      FROM employee
+    ->      ORDER BY salary DESC;
++--------+----------+-------------------+---------+----------+
+| emp_no | emp_name | designation       | dept_no | salary   |
++--------+----------+-------------------+---------+----------+
+| E010   | Ameena   | Team Lead         | D03     | 45000.00 |
+| E005   | Rishin   | Software Engineer | D03     | 40000.00 |
+| E006   | Jasna    | HR Executive      | D01     | 36000.00 |
+| E004   | Mizba    | Senior Accountant | D02     | 35000.00 |
+| E009   | Anjum    | Admin Officer     | D01     | 33000.00 |
+| E002   | Mishal   | Assistant Manager | D01     | 32000.00 |
+| E008   | Sadha    | Finance Executive | D02     | 31000.00 |
+| E001   | Rinshad  | Manager           | D01     | 30000.00 |
+| E007   | Nidha    | System Analyst    | D03     | 29000.00 |
+| E003   | Fidha    | Accountant        | D02     | 28000.00 |
++--------+----------+-------------------+---------+----------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT emp_no, emp_name
+    ->      FROM employee
+    ->      WHERE salary BETWEEN 2000 AND 5000;
+Empty set (0.00 sec)
+
+mysql> SELECT DISTINCT designation
+    -> FROM employee;
++-------------------+
+| designation       |
++-------------------+
+| Manager           |
+| Assistant Manager |
+| Accountant        |
+| Senior Accountant |
+| Software Engineer |
+| HR Executive      |
+| System Analyst    |
+| Finance Executive |
+| Admin Officer     |
+| Team Lead         |
++-------------------+
+10 rows in set (0.00 sec)
+
+mysql> UPDATE employee
+    -> SET salary = 45000
+    -> WHERE designation = 'Manager';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE employee
+    -> SET mobile_no = 987650111
+    -> WHERE emp_name = 'Rinshad';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> DELETE FROM employee
+    -> WHERE salary = 2500;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT emp_name, mobile_no
+    -> FROM employee
+    -> WHERE emp_name LIKE 'A%';
++----------+-----------+
+| emp_name | mobile_no |
++----------+-----------+
+| Anjum    | 987650009 |
+| Ameena   | 987650010 |
++----------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employee
+    -> WHERE LENGTH(emp_name) >= 3
+    ->   AND salary > 30000;
++--------+----------+-----------+----------+---------+-------------------+
+| emp_no | emp_name | mobile_no | salary   | dept_no | designation       |
++--------+----------+-----------+----------+---------+-------------------+
+| E001   | Rinshad  | 987650111 | 45000.00 | D01     | Manager           |
+| E002   | Mishal   | 987650002 | 32000.00 | D01     | Assistant Manager |
+| E004   | Mizba    | 987650004 | 35000.00 | D02     | Senior Accountant |
+| E005   | Rishin   | 987650005 | 40000.00 | D03     | Software Engineer |
+| E006   | Jasna    | 987650006 | 36000.00 | D01     | HR Executive      |
+| E008   | Sadha    | 987650008 | 31000.00 | D02     | Finance Executive |
+| E009   | Anjum    | 987650009 | 33000.00 | D01     | Admin Officer     |
+| E010   | Ameena   | 987650010 | 45000.00 | D03     | Team Lead         |
++--------+----------+-----------+----------+---------+-------------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employee
+    -> WHERE emp_no IN ('E001', 'E002', 'E006');
++--------+----------+-----------+----------+---------+-------------------+
+| emp_no | emp_name | mobile_no | salary   | dept_no | designation       |
++--------+----------+-----------+----------+---------+-------------------+
+| E001   | Rinshad  | 987650111 | 45000.00 | D01     | Manager           |
+| E002   | Mishal   | 987650002 | 32000.00 | D01     | Assistant Manager |
+| E006   | Jasna    | 987650006 | 36000.00 | D01     | HR Executive      |
++--------+----------+-----------+----------+---------+-------------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT emp_no, emp_name
+    -> FROM employee
+    -> WHERE salary BETWEEN 20000 AND 30000;
++--------+----------+
+| emp_no | emp_name |
++--------+----------+
+| E003   | Fidha    |
+| E007   | Nidha    |
++--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employee
+    -> WHERE designation = 'Manager'
+    ->    OR designation = 'Team Lead';
++--------+----------+-----------+----------+---------+-------------+
+| emp_no | emp_name | mobile_no | salary   | dept_no | designation |
++--------+----------+-----------+----------+---------+-------------+
+| E001   | Rinshad  | 987650111 | 45000.00 | D01     | Manager     |
+| E010   | Ameena   | 987650010 | 45000.00 | D03     | Team Lead   |
++--------+----------+-----------+----------+---------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT dept_no, COUNT(*) AS total_employees
+    -> FROM employee
+    -> GROUP BY dept_no;
++---------+-----------------+
+| dept_no | total_employees |
++---------+-----------------+
+| D01     |               4 |
+| D02     |               3 |
+| D03     |               3 |
++---------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT dept_no, AVG(salary) AS avg_salary
+    -> FROM employee
+    -> GROUP BY dept_no;
++---------+--------------+
+| dept_no | avg_salary   |
++---------+--------------+
+| D01     | 36500.000000 |
+| D02     | 31333.333333 |
+| D03     | 38000.000000 |
++---------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT dept_no, SUM(salary) AS total_salary
+    -> FROM employee
+    -> GROUP BY dept_no;
++---------+--------------+
+| dept_no | total_salary |
++---------+--------------+
+| D01     |    146000.00 |
+| D02     |     94000.00 |
+| D03     |    114000.00 |
++---------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT dept_no,
+    ->        MAX(salary) AS highest_salary,
+    ->        MIN(salary) AS lowest_salary
+    -> FROM employee
+    -> GROUP BY dept_no;
++---------+----------------+---------------+
+| dept_no | highest_salary | lowest_salary |
++---------+----------------+---------------+
+| D01     |       45000.00 |      32000.00 |
+| D02     |       35000.00 |      28000.00 |
+| D03     |       45000.00 |      29000.00 |
++---------+----------------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT dept_no, AVG(salary)
+    -> FROM employee
+    -> WHERE dept_no != 'D01'
+    -> GROUP BY dept_no;
++---------+--------------+
+| dept_no | AVG(salary)  |
++---------+--------------+
+| D02     | 31333.333333 |
+| D03     | 38000.000000 |
++---------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT dept_no, AVG(salary) AS avg_salary
+    -> FROM employee
+    -> WHERE dept_no != 'D03'
+    -> GROUP BY dept_no
+    -> HAVING AVG(salary) > 20000
+    -> ORDER BY avg_salary ASC;
++---------+--------------+
+| dept_no | avg_salary   |
++---------+--------------+
+| D02     | 31333.333333 |
+| D01     | 36500.000000 |
++---------+--------------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT * FROM employee;
++--------+----------+-----------+----------+---------+-------------------+
+| emp_no | emp_name | mobile_no | salary   | dept_no | designation       |
++--------+----------+-----------+----------+---------+-------------------+
+| E001   | Rinshad  | 987650111 | 45000.00 | D01     | Manager           |
+| E002   | Mishal   | 987650002 | 32000.00 | D01     | Assistant Manager |
+| E003   | Fidha    | 987650003 | 28000.00 | D02     | Accountant        |
+| E004   | Mizba    | 987650004 | 35000.00 | D02     | Senior Accountant |
+| E005   | Rishin   | 987650005 | 40000.00 | D03     | Software Engineer |
+| E006   | Jasna    | 987650006 | 36000.00 | D01     | HR Executive      |
+| E007   | Nidha    | 987650007 | 29000.00 | D03     | System Analyst    |
+| E008   | Sadha    | 987650008 | 31000.00 | D02     | Finance Executive |
+| E009   | Anjum    | 987650009 | 33000.00 | D01     | Admin Officer     |
+| E010   | Ameena   | 987650010 | 45000.00 | D03     | Team Lead         |
++--------+----------+-----------+----------+---------+-------------------+
+10 rows in set (0.01 sec)
+
+mysql> SELECT * FROM department;
++---------+------------------+
+| dept_no | dept_name        |
++---------+------------------+
+| D01     | Human Resources  |
+| D02     | Finance          |
+| D03     | IT               |
+| D04     | Marketing        |
+| D05     | Sales            |
+| D06     | Operations       |
+| D07     | Customer Support |
+| D08     | Research         |
+| D09     | Administration   |
+| D10     | Training         |
++---------+------------------+
+10 rows in set (0.00 sec)
+
