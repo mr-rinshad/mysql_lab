@@ -1,0 +1,16 @@
+DELIMITER //
+
+CREATE FUNCTION emo_count(e_name VARCHAR(50))
+RETURNS INT
+DETERMINISTIC
+BEGIN
+   DECLARE total INT;
+
+   SELECT COUNT(*) INTO total
+   FROM employee
+   WHERE emp_name = e_name;
+
+   RETURN total;
+END //
+
+DELIMITER ;
