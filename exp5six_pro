@@ -1,0 +1,27 @@
+DELIMITER //
+
+CREATE PROCEDURE calculate_bill()
+BEGIN
+
+UPDATE bill
+SET unit = cur_reading - pre_reading;
+
+UPDATE bill
+SET amount = unit * 2
+WHERE unit <= 100;
+
+UPDATE bill
+SET amount = (100*2) + (unit-100)*2.5
+WHERE unit > 100 AND unit <= 200;
+
+UPDATE bill
+SET amount = (100*2) + (100*2.5) + (unit-200)*3
+WHERE unit > 200 AND unit <= 300;
+
+UPDATE bill
+SET amount = (100*2) + (100*2.5) + (100*3) + (unit-300)*4
+WHERE unit > 300;
+
+END //
+
+DELIMITER ;
