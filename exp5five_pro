@@ -1,0 +1,46 @@
+DELIMITER $$
+
+CREATE PROCEDURE calculate_salary()
+BEGIN
+    DECLARE done INT DEFAULT 0;
+    DECLARE v_emp_id INT;
+    DECLARE v_emp_name VARCHAR(50);
+    DECLARE v_days INT;
+    DECLARE v_designation VARCHAR(50);
+    DECLARE v_salary INT;
+
+    DECLARE emp_cursor CURSOR FOR
+    SELECT empd_id, emp_name, no_of_worksdays, designation
+    FROM emp_salary;
+
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+    OPEN emp_cursor;
+
+    read_loop: LOOP
+        FETCH emp_cursor INTO v_emp_id, v_emp_name, v_days, v_designation;
+
+        IF done = 1 THEN
+            LEAVE read_loop;
+        END IF;
+
+        IF v_designation = 'Assistant Professor' THEN
+            SET v_salary = v_days * 1750;
+        ELSEIF v_designation = 'Clerk' THEN
+            SET v_salary = v_days * 750;
+        ELSEIF v_designation = 'Programmer' THEN
+            SET v_salary = v_days * 1250;
+        ELSE
+            SET v_salary = 0;
+        END IF;
+
+        UPDATE emp_salary
+        SET salary = v_salary
+        WHERE empd_id = v_emp_id;
+
+    END LOOP;
+
+    CLOSE emp_cursor;
+END$$
+
+DELIMITER ;
